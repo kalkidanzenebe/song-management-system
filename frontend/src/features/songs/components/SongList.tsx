@@ -135,6 +135,7 @@ export const SongList = () => {
   };
 
   const handleDeleteClick = (song: Song) => {
+    if (!song._id) return;
     setSongToDelete({ id: song._id, title: song.title });
     setIsDeleteModalOpen(true);
   };

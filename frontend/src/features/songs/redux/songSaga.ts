@@ -14,9 +14,8 @@ import {
   deleteSongFailure,
 } from './songSlice';
 import apiClient from '../../../api/axiosClient';
-import { Song } from '../types/song';
 
-function* fetchSongsSaga(action: ReturnType<typeof fetchSongsRequest>) {
+function* fetchSongsSaga(action: ReturnType<typeof fetchSongsRequest>): Generator<any, void, any> {
   try {
     const params = action.payload ? { genre: action.payload } : {};
     const response = yield call(apiClient.get, '/songs', { params });
@@ -26,7 +25,7 @@ function* fetchSongsSaga(action: ReturnType<typeof fetchSongsRequest>) {
   }
 }
 
-function* createSongSaga(action: ReturnType<typeof createSongRequest>) {
+function* createSongSaga(action: ReturnType<typeof createSongRequest>): Generator<any, void, any> {
   try {
     const response = yield call(apiClient.post, '/songs', action.payload);
     yield put(createSongSuccess(response.data));
@@ -35,7 +34,7 @@ function* createSongSaga(action: ReturnType<typeof createSongRequest>) {
   }
 }
 
-function* updateSongSaga(action: ReturnType<typeof updateSongRequest>) {
+function* updateSongSaga(action: ReturnType<typeof updateSongRequest>): Generator<any, void, any> {
   try {
     const response = yield call(
       apiClient.put,
@@ -48,7 +47,7 @@ function* updateSongSaga(action: ReturnType<typeof updateSongRequest>) {
   }
 }
 
-function* deleteSongSaga(action: ReturnType<typeof deleteSongRequest>) {
+function* deleteSongSaga(action: ReturnType<typeof deleteSongRequest>): Generator<any, void, any> {
   try {
     yield call(apiClient.delete, `/songs/${action.payload}`);
     yield put(deleteSongSuccess(action.payload));

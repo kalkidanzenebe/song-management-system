@@ -143,7 +143,7 @@ export const StatsDashboard = () => {
                 }}
               />
               <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                {songsPerGenreData.map((entry, index) => (
+                {songsPerGenreData.map((_entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}

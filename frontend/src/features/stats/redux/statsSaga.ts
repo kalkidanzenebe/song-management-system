@@ -5,9 +5,8 @@ import {
   fetchStatsFailure,
 } from './statsSlice';
 import apiClient from '../../../api/axiosClient';
-import { Stats } from '../types/stats';
 
-function* fetchStatsSaga() {
+function* fetchStatsSaga(): Generator<any, void, any> {
   try {
     const response = yield call(apiClient.get, '/stats');
     yield put(fetchStatsSuccess(response.data));

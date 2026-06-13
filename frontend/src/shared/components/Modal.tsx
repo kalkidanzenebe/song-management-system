@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
 import { Card } from './Card';
-import { Button } from './Button';
 
 const Overlay = styled.div`
   position: fixed;

@@ -21,7 +21,7 @@ const songSlice = createSlice({
   name: 'songs',
   initialState,
   reducers: {
-    fetchSongsRequest: (state, _action: PayloadAction<string | undefined>) => {
+    fetchSongsRequest: (state, _action: PayloadAction<string | null | undefined>) => {
       state.loading = true;
       state.error = null;
     },
