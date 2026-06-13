@@ -4,6 +4,8 @@ import styled from '@emotion/styled';
 import type { RootState } from '../../../app/store';
 import { fetchStatsRequest } from '../redux/statsSlice';
 import { Loader } from '../../../shared/components/Loader';
+import { ErrorMessage } from '../../../shared/components/ErrorMessage';
+import { EmptyState } from '../../../shared/components/EmptyState';
 import { StatCard } from './StatCard';
 
 const StatsGrid = styled.div`
@@ -63,8 +65,16 @@ export const StatsDashboard = () => {
   }, [dispatch]);
 
   if (loading) return <Loader />;
-  if (error) return <div>Error: {error}</div>;
-  if (!stats) return <div>No stats available</div>;
+  if (error) return <ErrorMessage message={error} />;
+  if (!stats || stats.totalSongs === 0) {
+    return (
+      <EmptyState
+        title="No stats available"
+        description="Add some songs first to see statistics!"
+        icon="📊"
+      />
+    );
+  }
 
   return (
     <div>

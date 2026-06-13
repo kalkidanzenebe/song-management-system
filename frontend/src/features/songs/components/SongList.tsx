@@ -3,17 +3,12 @@ import { useEffect, useState } from 'react';
 import type { RootState } from '../../../app/store';
 import { fetchSongsRequest } from '../redux/songSlice';
 import { Loader } from '../../../shared/components/Loader';
+import { ErrorMessage } from '../../../shared/components/ErrorMessage';
+import { EmptyState } from '../../../shared/components/EmptyState';
 import { SongItem } from './SongItem';
 import { SongForm } from './SongForm';
 import { GenreFilter } from './GenreFilter';
 import type { Song } from '../types/song';
-import styled from '@emotion/styled';
-
-const EmptyState = styled.div`
-  text-align: center;
-  padding: 3rem;
-  color: #64748b;
-`;
 
 export const SongList = () => {
   const dispatch = useDispatch();
@@ -29,7 +24,7 @@ export const SongList = () => {
   const uniqueGenres = Array.from(new Set(songs.map((song) => song.genre)));
 
   if (loading) return <Loader />;
-  if (error) return <EmptyState>Error: {error}</EmptyState>;
+  if (error) return <ErrorMessage message={error} />;
 
   return (
     <div>
@@ -41,7 +36,10 @@ export const SongList = () => {
       {uniqueGenres.length > 0 && <GenreFilter genres={uniqueGenres} />}
       
       {songs.length === 0 ? (
-        <EmptyState>No songs found. Add one above!</EmptyState>
+        <EmptyState
+          title="No songs found"
+          description="Add a song above to get started!"
+        />
       ) : (
         songs.map((song) => (
           <SongItem
