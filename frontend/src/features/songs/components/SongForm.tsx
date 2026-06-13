@@ -5,52 +5,51 @@ import { Song } from '../types/song';
 import { createSongRequest, updateSongRequest } from '../redux/songSlice';
 import { Button } from '../../../shared/components/Button';
 import { Input } from '../../../shared/components/Input';
-
-const FormContainer = styled.div`
-  background: white;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-`;
-
-const FormTitle = styled.h2`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #1e293b;
-`;
+import { Modal } from '../../../shared/components/Modal';
+import { theme } from '../../../shared/styles/theme';
 
 const Form = styled.form`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+  gap: ${theme.spacing[16]};
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
+
+  &:first-of-type {
+    grid-column: 1 / -1;
+  }
 `;
 
 const Label = styled.label`
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #334155;
+  font-family: ${theme.typography.fontFamily.sans.join(', ')};
+  font-size: ${theme.typography.fontSize.sm};
+  font-weight: ${theme.typography.fontWeight.medium};
+  color: ${theme.colors.textPrimary};
+  margin-bottom: ${theme.spacing[8]};
 `;
 
 const FormActions = styled.div`
   grid-column: 1 / -1;
   display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  justify-content: flex-end;
+  gap: ${theme.spacing[12]};
+  margin-top: ${theme.spacing[8]};
 `;
 
 interface SongFormProps {
+  isOpen: boolean;
+  onClose: () => void;
   songToEdit?: Song | null;
-  onCancel?: () => void;
 }
 
-export const SongForm = ({ songToEdit, onCancel }: SongFormProps) => {
+export const SongForm = ({ isOpen, onClose, songToEdit }: SongFormProps) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState<Partial<Song>>({
     title: '',
@@ -82,22 +81,28 @@ export const SongForm = ({ songToEdit, onCancel }: SongFormProps) => {
         })
       );
     } else {
-      dispatch(createSongRequest(formData as Omit<Song, '_id' | 'createdAt' | 'updatedAt'>));
+      dispatch(
+        createSongRequest(
+          formData as Omit<Song, '_id' | 'createdAt' | 'updatedAt'>
+        )
+      );
     }
-    if (onCancel) onCancel();
-    setFormData({ title: '', artist: '', album: '', genre: '' });
+    onClose();
   };
 
   return (
-    <FormContainer>
-      <FormTitle>{songToEdit ? 'Edit Song' : 'Add New Song'}</FormTitle>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={songToEdit ? 'Edit Song' : 'Add New Song'}
+    >
       <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label htmlFor="title">Title</Label>
           <Input
             id="title"
             name="title"
-            value={formData.title}
+            value={formData.title || ''}
             onChange={handleChange}
             placeholder="Enter song title"
             required
@@ -108,7 +113,7 @@ export const SongForm = ({ songToEdit, onCancel }: SongFormProps) => {
           <Input
             id="artist"
             name="artist"
-            value={formData.artist}
+            value={formData.artist || ''}
             onChange={handleChange}
             placeholder="Enter artist name"
             required
@@ -119,7 +124,7 @@ export const SongForm = ({ songToEdit, onCancel }: SongFormProps) => {
           <Input
             id="album"
             name="album"
-            value={formData.album}
+            value={formData.album || ''}
             onChange={handleChange}
             placeholder="Enter album name"
             required
@@ -130,21 +135,21 @@ export const SongForm = ({ songToEdit, onCancel }: SongFormProps) => {
           <Input
             id="genre"
             name="genre"
-            value={formData.genre}
+            value={formData.genre || ''}
             onChange={handleChange}
             placeholder="Enter genre"
             required
           />
         </FormGroup>
         <FormActions>
-          <Button type="submit">{songToEdit ? 'Update Song' : 'Add Song'}</Button>
-          {onCancel && (
-            <Button type="button" variant="secondary" onClick={onCancel}>
-              Cancel
-            </Button>
-          )}
+          <Button type="button" variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button type="submit">
+            {songToEdit ? 'Update Song' : 'Add Song'}
+          </Button>
         </FormActions>
       </Form>
-    </FormContainer>
+    </Modal>
   );
 };

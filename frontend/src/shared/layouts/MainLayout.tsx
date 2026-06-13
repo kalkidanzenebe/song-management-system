@@ -1,39 +1,67 @@
 import styled from '@emotion/styled';
+import { theme } from '../styles/theme';
 
 const LayoutContainer = styled.div`
   min-height: 100vh;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  background-color: ${theme.colors.background};
 `;
 
-const Header = styled.header`
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+const StickyHeader = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: ${theme.colors.surface};
+  border-bottom: 1px solid ${theme.colors.border};
+`;
+
+const HeaderContent = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: ${theme.spacing[16]} ${theme.spacing[24]};
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 700;
-  color: #1e293b;
+  font-family: ${theme.typography.fontFamily.sans.join(', ')};
+  font-size: ${theme.typography.fontSize['2xl']};
+  font-weight: ${theme.typography.fontWeight.bold};
+  color: ${theme.colors.textPrimary};
+  margin: 0;
+`;
+
+const Subtitle = styled.p`
+  font-family: ${theme.typography.fontFamily.sans.join(', ')};
+  font-size: ${theme.typography.fontSize.sm};
+  color: ${theme.colors.textSecondary};
+  margin: ${theme.spacing[4]} 0 0 0;
 `;
 
 const Nav = styled.nav`
-  margin-top: 1rem;
+  margin-top: ${theme.spacing[16]};
   display: flex;
-  gap: 1rem;
+  gap: ${theme.spacing[24]};
 `;
 
-const NavLink = styled.a<{ active?: boolean }>`
-  color: ${({ active }) => (active ? '#3b82f6' : '#64748b')};
-  text-decoration: none;
-  font-weight: 500;
+const NavLink = styled.button<{ active?: boolean }>`
+  background: none;
+  border: none;
+  padding: ${theme.spacing[4]} 0;
+  font-family: ${theme.typography.fontFamily.sans.join(', ')};
+  font-size: ${theme.typography.fontSize.base};
+  font-weight: ${theme.typography.fontWeight.medium};
+  color: ${({ active }) => (active ? theme.colors.primary : theme.colors.textSecondary)};
   cursor: pointer;
-  
+  transition: color 0.15s;
+  border-bottom: 2px solid ${({ active }) => (active ? theme.colors.primary : 'transparent')};
+
   &:hover {
-    color: #3b82f6;
+    color: ${theme.colors.primary};
   }
+`;
+
+const MainContent = styled.main`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: ${theme.spacing[24]};
 `;
 
 interface MainLayoutProps {
@@ -44,17 +72,20 @@ interface MainLayoutProps {
 
 export const MainLayout = ({ children, activeTab, onTabChange }: MainLayoutProps) => (
   <LayoutContainer>
-    <Header>
-      <Title>Song Management</Title>
-      <Nav>
-        <NavLink active={activeTab === 'songs'} onClick={() => onTabChange('songs')}>
-          Songs
-        </NavLink>
-        <NavLink active={activeTab === 'stats'} onClick={() => onTabChange('stats')}>
-          Statistics
-        </NavLink>
-      </Nav>
-    </Header>
-    <main>{children}</main>
+    <StickyHeader>
+      <HeaderContent>
+        <Title>🎵 Song Management System</Title>
+        <Subtitle>Manage songs and view analytics</Subtitle>
+        <Nav>
+          <NavLink active={activeTab === 'songs'} onClick={() => onTabChange('songs')}>
+            Songs
+          </NavLink>
+          <NavLink active={activeTab === 'stats'} onClick={() => onTabChange('stats')}>
+            Statistics
+          </NavLink>
+        </Nav>
+      </HeaderContent>
+    </StickyHeader>
+    <MainContent>{children}</MainContent>
   </LayoutContainer>
 );

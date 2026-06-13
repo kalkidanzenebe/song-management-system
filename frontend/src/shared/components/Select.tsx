@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { theme } from '../styles/theme';
 
-export const Input = styled.input`
+export const Select = styled.select`
   width: 100%;
   padding: ${theme.spacing[8]} ${theme.spacing[12]};
   border: 1px solid ${theme.colors.border};
@@ -12,10 +12,7 @@ export const Input = styled.input`
   background-color: ${theme.colors.surface};
   transition: border-color 0.15s, box-shadow 0.15s;
   outline: none;
-
-  &::placeholder {
-    color: ${theme.colors.textSecondary};
-  }
+  cursor: pointer;
 
   &:focus {
     border-color: ${theme.colors.primary};

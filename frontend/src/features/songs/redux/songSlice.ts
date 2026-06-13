@@ -6,6 +6,7 @@ interface SongState {
   loading: boolean;
   error: string | null;
   selectedGenre: string | null;
+  searchQuery: string;
 }
 
 const initialState: SongState = {
@@ -13,6 +14,7 @@ const initialState: SongState = {
   loading: false,
   error: null,
   selectedGenre: null,
+  searchQuery: '',
 };
 
 const songSlice = createSlice({
@@ -73,6 +75,9 @@ const songSlice = createSlice({
     setSelectedGenre: (state, action: PayloadAction<string | null>) => {
       state.selectedGenre = action.payload;
     },
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
   },
 });
 
@@ -90,6 +95,7 @@ export const {
   deleteSongSuccess,
   deleteSongFailure,
   setSelectedGenre,
+  setSearchQuery,
 } = songSlice.actions;
 
 export default songSlice.reducer;
