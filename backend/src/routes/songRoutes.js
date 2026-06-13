@@ -6,16 +6,17 @@ const {
   updateSong,
   deleteSong,
 } = require('../controllers/songController');
+const { validateSong } = require('../validators/songValidator');
 
 const router = express.Router();
 
 router.route('/')
   .get(getAllSongs)
-  .post(createSong);
+  .post(validateSong, createSong);
 
 router.route('/:id')
   .get(getSongById)
-  .put(updateSong)
+  .put(validateSong, updateSong)
   .delete(deleteSong);
 
 module.exports = router;
