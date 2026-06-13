@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
-import { Song } from '../types/song';
+import type { Song } from '../types/song';
 import { deleteSongRequest } from '../redux/songSlice';
 import { Button } from '../../../shared/components/Button';
 

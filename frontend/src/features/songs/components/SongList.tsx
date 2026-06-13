@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { RootState } from '../../../app/store';
+import type { RootState } from '../../../app/store';
 import { fetchSongsRequest } from '../redux/songSlice';
 import { Loader } from '../../../shared/components/Loader';
 import { SongItem } from './SongItem';
 import { SongForm } from './SongForm';
 import { GenreFilter } from './GenreFilter';
-import { Song } from '../types/song';
+import type { Song } from '../types/song';
 import styled from '@emotion/styled';
 
 const EmptyState = styled.div`

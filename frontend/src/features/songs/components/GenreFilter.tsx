@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
-import { RootState } from '../../../app/store';
+import type { RootState } from '../../../app/store';
 import { setSelectedGenre } from '../redux/songSlice';
 
 const FilterContainer = styled.div`

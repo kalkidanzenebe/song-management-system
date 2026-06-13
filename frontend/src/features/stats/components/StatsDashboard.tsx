@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
-import { RootState } from '../../../app/store';
+import type { RootState } from '../../../app/store';
 import { fetchStatsRequest } from '../redux/statsSlice';
 import { Loader } from '../../../shared/components/Loader';
 import { StatCard } from './StatCard';
