@@ -1,15 +1,9 @@
-const Song = require('../models/Song');
+const songService = require('../services/songService');
 
 const getAllSongs = async (req, res) => {
   try {
     const { genre } = req.query;
-    let query = {};
-    
-    if (genre) {
-      query.genre = genre;
-    }
-    
-    const songs = await Song.find(query).sort({ createdAt: -1 });
+    const songs = await songService.getAllSongs(genre);
     res.json(songs);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -18,7 +12,7 @@ const getAllSongs = async (req, res) => {
 
 const getSongById = async (req, res) => {
   try {
-    const song = await Song.findById(req.params.id);
+    const song = await songService.getSongById(req.params.id);
     if (!song) {
       return res.status(404).json({ message: 'Song not found' });
     }
@@ -30,9 +24,8 @@ const getSongById = async (req, res) => {
 
 const createSong = async (req, res) => {
   try {
-    const song = new Song(req.body);
-    const createdSong = await song.save();
-    res.status(201).json(createdSong);
+    const song = await songService.createSong(req.body);
+    res.status(201).json(song);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -40,11 +33,7 @@ const createSong = async (req, res) => {
 
 const updateSong = async (req, res) => {
   try {
-    const song = await Song.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
+    const song = await songService.updateSong(req.params.id, req.body);
     if (!song) {
       return res.status(404).json({ message: 'Song not found' });
     }
@@ -56,7 +45,7 @@ const updateSong = async (req, res) => {
 
 const deleteSong = async (req, res) => {
   try {
-    const song = await Song.findByIdAndDelete(req.params.id);
+    const song = await songService.deleteSong(req.params.id);
     if (!song) {
       return res.status(404).json({ message: 'Song not found' });
     }

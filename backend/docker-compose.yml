@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: song-management-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: .
+    container_name: song-management-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo:27017/song-management
+      - PORT=5000
+    depends_on:
+      - mongo
+    volumes:
+      - ./:/app
+      - /app/node_modules
+
+volumes:
+  mongo-data:
