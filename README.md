@@ -1,95 +1,139 @@
 # Song Management System
 
-A full-stack MERN application for managing songs and viewing statistics.
+A full-stack MERN application built for the Addis Software Full Stack Developer Assessment.
+
+## Live Demo
+
+- **Frontend (Vercel)**: https://song-management-system.vercel.app
+- **Backend (Render)**: https://song-management-system.onrender.com
+
+## Features
+
+### Backend
+
+- CRUD operations for songs
+- Statistics API
+- MongoDB with Mongoose
+- Dockerized backend
+
+### Frontend
+
+- Create, update, and delete songs
+- Statistics dashboard
+- Genre filtering and search
+- Redux Toolkit for state management
+- Redux Saga for async operations
+- TypeScript for type safety
+- Responsive UI with Emotion
+- Real-time updates without page reload
 
 ## Tech Stack
 
 ### Backend
+
 - Node.js
 - Express.js
-- MongoDB with Mongoose
+- MongoDB
+- Mongoose
 - Docker
 
 ### Frontend
-- React 18
+
+- React
 - TypeScript
 - Redux Toolkit
 - Redux Saga
 - Emotion (Styled Components)
 - Vite
+- Recharts (Charts)
 
-## Getting Started
+## Run Locally
 
 ### Prerequisites
+
 - Node.js (v18 or later)
 - MongoDB (or Docker)
 
-### Backend Setup
+### 1. Clone Repository
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
+```bash
+git clone <repository-url>
+cd song-management
+```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+### 2. Start Backend
 
-3. Create a `.env` file (copy from `.env.example`):
-   ```bash
-   cp .env.example .env
-   ```
+```bash
+cd backend
+cp .env.example .env
+# Option 1: With Docker (includes MongoDB)
+docker-compose up
 
-4. Start the backend (with Docker):
-   ```bash
-   docker-compose up
-   ```
-   
-   Or without Docker (make sure MongoDB is running locally):
-   ```bash
-   npm run dev
-   ```
+# Option 2: Without Docker (make sure MongoDB is running locally)
+npm install
+npm run dev
+```
 
-The backend will be running on http://localhost:5000
+Backend will run on: `http://localhost:5000`
 
-### Frontend Setup
+### 3. Start Frontend
 
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
+Open a new terminal:
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
+```
 
-3. Create a `.env` file (copy from `.env.example`):
-   ```bash
-   cp .env.example .env
-   ```
+Frontend will run on: `http://localhost:5173`
 
-4. Start the frontend:
-   ```bash
-   npm run dev
-   ```
-
-The frontend will be running on http://localhost:5173
-
-## Features
+## Environment Variables
 
 ### Backend
-- REST API for songs (CRUD operations)
-- Statistics endpoint
-- Docker support
+
+```env
+MONGODB_URI=mongodb://localhost:27017/song-management
+PORT=5000
+NODE_ENV=development
+```
 
 ### Frontend
-- Song management (add, edit, delete)
-- Real-time updates without page reload
-- Filter songs by genre
-- Statistics dashboard
-- Responsive UI with Emotion
+
+```env
+# Local development
+VITE_API_URL=http://localhost:5000/api
+
+# For production (Vercel)
+VITE_API_URL=https://song-management-system.onrender.com/api
+```
+
+## Deployment Guide
+
+### Backend (Render)
+
+1. Push your code to GitHub
+2. Create a new Web Service on Render
+3. Configure the service:
+   - **Root directory**: `backend`
+   - **Build command**: `npm install`
+   - **Start command**: `npm start`
+4. Add environment variables:
+   - `MONGODB_URI`: Your MongoDB connection string (use MongoDB Atlas for production)
+   - `PORT`: `5000`
+   - `NODE_ENV`: `production`
+
+### Frontend (Vercel)
+
+1. Push your code to GitHub
+2. Import your repository to Vercel
+3. Configure the project:
+   - **Root directory**: `frontend`
+   - **Build command**: `npm run build`
+   - **Output directory**: `dist`
+4. Add environment variable:
+   - `VITE_API_URL`: `https://song-management-system.onrender.com/api`
 
 ## Project Structure
 
