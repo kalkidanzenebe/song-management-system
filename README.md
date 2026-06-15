@@ -7,6 +7,12 @@ A full-stack MERN application built for the Addis Software Full Stack Developer 
 - **Frontend (Vercel)**: https://song-management-system.vercel.app
 - **Backend (Render)**: https://song-management-system.onrender.com
 
+## Screenshots
+
+![Song List](screenshots/Song-list.png)
+![Statistics Dashboard](screenshots/Statics-dashboard.png)
+![Statistics Charts](screenshots/Statics-dashbord-charts.png)
+
 ## Features
 
 ### Backend
