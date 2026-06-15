@@ -5,13 +5,25 @@ import {
   fetchStatsFailure,
 } from './statsSlice';
 import apiClient from '../../../api/axiosClient';
+import type { Stats } from '../types/stats';
+import type { AxiosResponse } from 'axios';
 
-function* fetchStatsSaga(): Generator<any, void, any> {
+interface SagaError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+  message?: string;
+}
+
+function* fetchStatsSaga() {
   try {
-    const response = yield call(apiClient.get, '/stats');
+    const response: AxiosResponse<Stats> = yield call(apiClient.get, '/stats');
     yield put(fetchStatsSuccess(response.data));
-  } catch (error: any) {
-    yield put(fetchStatsFailure(error.response?.data?.message || 'Failed to fetch stats'));
+  } catch (error) {
+    const err = error as SagaError;
+    yield put(fetchStatsFailure(err.response?.data?.message || 'Failed to fetch stats'));
   }
 }
 

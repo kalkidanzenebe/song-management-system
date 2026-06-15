@@ -18,7 +18,11 @@ A full-stack MERN application built for the Addis Software Full Stack Developer 
 ### Backend
 
 - CRUD operations for songs
-- Statistics API
+- Comprehensive Statistics API including:
+  - Total songs, artists, albums, and genres
+  - Number of songs per genre
+  - Number of songs and albums per artist
+  - Number of songs per album
 - MongoDB with Mongoose
 - Dockerized backend
 
@@ -46,12 +50,28 @@ A full-stack MERN application built for the Addis Software Full Stack Developer 
 ### Frontend
 
 - React
-- TypeScript
+- TypeScript (Strict, no `any` types)
 - Redux Toolkit
 - Redux Saga
 - Emotion (Styled Components)
 - Vite
 - Recharts (Charts)
+
+## API Endpoints
+
+### Songs
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/songs` | Get all songs (filter by genre with `?genre=` query parameter) |
+| `GET` | `/api/songs/:id` | Get a single song by ID |
+| `POST` | `/api/songs` | Create a new song |
+| `PUT` | `/api/songs/:id` | Update an existing song |
+| `DELETE` | `/api/songs/:id` | Delete a song |
+
+### Statistics
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/stats` | Get comprehensive statistics |
 
 ## Run Locally
 
@@ -63,7 +83,7 @@ A full-stack MERN application built for the Addis Software Full Stack Developer 
 ### 1. Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/kalkidanzenebe/song-management-system.git
 cd song-management
 ```
 
