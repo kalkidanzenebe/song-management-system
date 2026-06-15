@@ -1,6 +1,6 @@
 # Song Management System
 
-A full-stack MERN application built for the Addis Software Full Stack Developer Assessment.
+A full-stack MERN application built for the Addis Software Full Stack Developer Assessment. The application allows users to manage songs through CRUD operations and view real-time analytics generated from MongoDB aggregation pipelines.
 
 ## Live Demo
 
@@ -10,8 +10,8 @@ A full-stack MERN application built for the Addis Software Full Stack Developer 
 ## Screenshots
 
 ![Song List](screenshots/Song-list.png)
-![Statistics Dashboard](screenshots/Statics-dashboard.png)
-![Statistics Charts](screenshots/Statics-dashbord-charts.png)
+![Statistics Dashboard](screenshots/Statistics-dashboard.png)
+![Statistics Dashboard Charts](screenshots/Statistics-dashboard-charts.png)
 
 ## Features
 
@@ -84,7 +84,7 @@ A full-stack MERN application built for the Addis Software Full Stack Developer 
 
 ```bash
 git clone https://github.com/kalkidanzenebe/song-management-system.git
-cd song-management
+cd song-management-system
 ```
 
 ### 2. Start Backend
@@ -135,61 +135,17 @@ VITE_API_URL=http://localhost:5000/api
 VITE_API_URL=https://song-management-system.onrender.com/api
 ```
 
-## Deployment Guide
-
-### Backend (Render)
-
-1. Push your code to GitHub
-2. Create a new Web Service on Render
-3. Configure the service:
-   - **Root directory**: `backend`
-   - **Build command**: `npm install`
-   - **Start command**: `npm start`
-4. Add environment variables:
-   - `MONGODB_URI`: Your MongoDB connection string (use MongoDB Atlas for production)
-   - `PORT`: `5000`
-   - `NODE_ENV`: `production`
-
-### Frontend (Vercel)
-
-1. Push your code to GitHub
-2. Import your repository to Vercel
-3. Configure the project:
-   - **Root directory**: `frontend`
-   - **Build command**: `npm run build`
-   - **Output directory**: `dist`
-4. Add environment variable:
-   - `VITE_API_URL`: `https://song-management-system.onrender.com/api`
-
 ## Project Structure
 
 ```
-song-management/
+song-management-system/
 ├── backend/
 │   ├── src/
-│   │   ├── config/
-│   │   │   └── db.js
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   ├── app.js
-│   │   └── server.js
 │   ├── Dockerfile
 │   ├── docker-compose.yml
 │   └── package.json
-└── frontend/
-    ├── src/
-    │   ├── app/
-    │   ├── api/
-    │   ├── features/
-    │   │   ├── songs/
-    │   │   └── stats/
-    │   ├── shared/
-    │   ├── types/
-    │   ├── App.tsx
-    │   └── main.tsx
-    └── package.json
+├── frontend/
+│   ├── src/
+│   └── package.json
+└── screenshots/
 ```
